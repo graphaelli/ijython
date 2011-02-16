@@ -382,10 +382,10 @@ class Client(object):
         
         self._task_socket.close()
         self._task_socket = None
-        msg = "An engine has been unregistered, and we are using pure " +
+        msg = "An engine has been unregistered, and we are using pure " +\
               "ZMQ task scheduling.  Task farming will be disabled."
         if self.outstanding:
-            msg += " If you were running tasks when this happened, " +
+            msg += " If you were running tasks when this happened, " +\
                    "some `outstanding` msg_ids may never resolve."
         warnings.warn(msg, RuntimeWarning)
     
