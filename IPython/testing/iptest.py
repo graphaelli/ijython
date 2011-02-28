@@ -83,7 +83,7 @@ warnings.filterwarnings('ignore', 'wxPython/wxWidgets release number mismatch',
 # Logic for skipping doctests
 #-----------------------------------------------------------------------------
 
-def test_for(mod):
+def test_for(mod, min_version=None):
     """Test to see if mod is importable."""
     try:
         __import__(mod)
@@ -92,7 +92,10 @@ def test_for(mod):
         # importable.
         return False
     else:
-        return True
+        if min_version:
+            return sys.modules[mod].__version__ >= min_version
+        else:
+            return True
 
 # Global dict where we can store information on what we have and what we don't
 # have available at test run time
@@ -107,6 +110,7 @@ have['foolscap'] = test_for('foolscap')
 have['pexpect'] = test_for('pexpect')
 have['gtk'] = test_for('gtk')
 have['gobject'] = test_for('gobject')
+have['zmq'] = test_for('zmq', '2.0.10')
 
 #-----------------------------------------------------------------------------
 # Functions and classes
@@ -173,6 +177,7 @@ def make_exclude():
 
     if not have['gtk'] or not have['gobject']:
         exclusions.append(ipjoin('lib', 'inputhookgtk'))
+        exclusions.append(ipjoin('zmq', 'gui'))
 
     # These have to be skipped on win32 because the use echo, rm, cd, etc.
     # See ticket https://bugs.launchpad.net/bugs/366982
@@ -194,6 +199,8 @@ def make_exclude():
              ipjoin('testing', 'tests', 'test_decorators_trial'),
              ] )
 
+    if not have['zmq']:
+        exclusions.append(ipjoin('zmq'))
     # This is needed for the reg-exp to match on win32 in the ipdoctest plugin.
     if sys.platform == 'win32':
         exclusions = [s.replace('\\','\\\\') for s in exclusions]
