@@ -24,3 +24,7 @@ started to port IPython to Python 3.0.
     IPython 0.10 has only been well tested with Python 2.5 and 2.6.  Parts of
     it may work with Python 2.4, but we do not officially support Python 2.4
     anymore.  If you need to use 2.4, you can still run IPython 0.9.
+
+	IPython 0.10 works with jython 2.5 on Linux/BSD/MacOS/etc with trivial
+	changes available at https://github.com/graphaelli/ijython.
+
