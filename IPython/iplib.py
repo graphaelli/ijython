@@ -745,7 +745,7 @@ class InteractiveShell(object,Magic):
 
         # Make some aliases automatically
         # Prepare list of shell aliases to auto-define
-        if os.name == 'posix':
+        if os.name in ('posix', 'java'):
             auto_alias = ('mkdir mkdir', 'rmdir rmdir',
                           'mv mv -i','rm rm -i','cp cp -i',
                           'cat cat','less less','clear clear',

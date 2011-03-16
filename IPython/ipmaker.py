@@ -127,7 +127,7 @@ object?   -> Details about 'object'. ?object also works, ?? prints more.
     IP.usage = interactive_usage
 
     # Platform-dependent suffix.
-    if os.name == 'posix':
+    if os.name in ('posix', 'java'):
         rc_suffix = ''
     else:
         rc_suffix = '.ini'

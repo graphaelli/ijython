@@ -938,7 +938,7 @@ def get_home_dir():
             raise KeyError
         return homedir.decode(sys.getfilesystemencoding())
     except KeyError:
-        if os.name == 'posix':
+        if os.name in ('posix', 'java'):
             # Last-ditch attempt at finding a suitable $HOME, on systems where
             # it may not be defined in the environment but the system shell
             # still knows it - reported once as:
@@ -992,7 +992,7 @@ def get_ipython_dir():
     This uses the logic in `get_home_dir` to find the home directory
     and the adds either .ipython or _ipython to the end of the path.
     """
-    if os.name == 'posix':
+    if os.name in ('java', 'posix'):
          ipdir_def = '.ipython'
     else:
          ipdir_def = '_ipython'
@@ -1504,7 +1504,7 @@ def native_line_ends(filename,backup=1):
     If the optional backup argument is given as false, no backup of the
     original file is left.  """
 
-    backup_suffixes = {'posix':'~','dos':'.bak','nt':'.bak','mac':'.bak'}
+    backup_suffixes = {'java':'~','posix':'~','dos':'.bak','nt':'.bak','mac':'.bak'}
 
     bak_filename = filename + backup_suffixes[os.name]
 
